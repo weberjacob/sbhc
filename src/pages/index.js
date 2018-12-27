@@ -5,7 +5,7 @@ const homePage = () => (
   <div className="homePage">
     <div className="inner">
       <img alt="Knight Cap" src={require('../images/Logo.png')} />
-      <p>Something new is in the works, stay tuned for more.</p>
+      <p>Testing another somethings new is in the works, stay tuned for more.</p>
     </div>
   </div>
 )
