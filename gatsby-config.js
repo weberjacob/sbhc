@@ -14,6 +14,13 @@ module.exports = {
       },
     },
     {
+      resolve: `gatsby-source-drupal`,
+      options: {
+        baseUrl: `baseUrl: 'http://dev-d8gatsby.pantheonsite.io/`,
+        apiBase: `jsonapi`, // optional, defaults to `jsonapi`
+      },
+    },
+    {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `images`,
