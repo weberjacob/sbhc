@@ -5,19 +5,19 @@ module.exports = {
     author: `@gatsbyjs`,
   },
   plugins: [
+    {
+      resolve: `gatsby-source-drupal`,
+      options: {
+        baseUrl: 'http://dev-d8gatsby.pantheonsite.io/',
+        apiBase: `jsonapi`, // optional, defaults to `jsonapi`
+      },
+    },
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-sass`,
     {
       resolve: `gatsby-plugin-typography`,
       options: {
         pathToConfigModule: `src/utils/typography`,
-      },
-    },
-    {
-      resolve: `gatsby-source-drupal`,
-      options: {
-        baseUrl: `baseUrl: 'http://dev-d8gatsby.pantheonsite.io/`,
-        apiBase: `jsonapi`, // optional, defaults to `jsonapi`
       },
     },
     {
