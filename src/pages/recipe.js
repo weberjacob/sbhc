@@ -1,16 +1,18 @@
 import React from "react"
 import { graphql } from "gatsby"
-// import Img from "gatsby-image"
+import Img from "gatsby-image"
 
 import Layout from '../components/layout'
 
 const RecipePage = ({ data }) => (
   <Layout>
     <div>
-      {data.allNodeRecipe.edges.map(({ node }) => (
-        <div>
+      { data.allNodeRecipe.edges.map(({ node }) => (
+        <div className="recipe">
           <h3>{node.title}</h3>
-          {/* <Img fixed={node.field_image.fixed } /> */}
+          <Img
+            fluid={node.relationships.field_hero_image.localFile.childImageSharp.fluid}
+          />
           <div className="servings"> {node.field_servings} </div>
           <div className="duration"> {node.field_duration} </div>
           <div className="ingredients" dangerouslySetInnerHTML={{ __html: node.field_ingredients.processed }} />
@@ -42,6 +44,28 @@ export const recipeQuery = graphql`
             value
             format
             processed
+          }
+          relationships {
+            field_hero_image {
+              localFile {
+                childImageSharp {
+                  fluid {
+                    base64
+                    tracedSVG
+                    aspectRatio
+                    src
+                    srcSet
+                    srcWebp
+                    srcSetWebp
+                    sizes
+                    originalImg
+                    originalName
+                    presentationWidth
+                    presentationHeight
+                  }
+                }
+              }
+            }
           }
         }
       }
