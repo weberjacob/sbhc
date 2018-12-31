@@ -1,27 +1,53 @@
 import React from "react"
 import { graphql } from "gatsby"
+import get from 'lodash/get'
 import Img from "gatsby-image"
 
 import Layout from '../components/layout'
 
-const RecipePage = ({ data }) => (
-  <Layout>
-    <div>
-      { data.allNodeRecipe.edges.map(({ node }) => (
-        <div className="recipe">
-          <h3>{node.title}</h3>
-          <Img
-            fluid={node.relationships.field_hero_image.localFile.childImageSharp.fluid}
-          />
-          <div className="servings"> {node.field_servings} </div>
-          <div className="duration"> {node.field_duration} </div>
-          <div className="ingredients" dangerouslySetInnerHTML={{ __html: node.field_ingredients.processed }} />
-          <div className="directions" dangerouslySetInnerHTML={{ __html: node.field_directions.processed }} />
+class RecipePage extends React.Component {
+  render() {
+    const recipe = get(this, 'props.data.allNodeRecipe.edges')
+    const findImages = get(this, 'props.data.allNodeRecipe.edges')
+    console.log(findImages)
+    
+    // const imageArray = findImages
+    // const images = imageArray.map(image => {
+    //   return <img key={image} src={require(`./icons/${image}.png`)} alt="" />
+    // })
+
+    return (
+      <Layout>
+        <div>
+          {recipe.map(({ node }) => (
+            <div className="recipe">
+              <h3>{ node.title }</h3>
+              {/* {recipe.map(({ localFile }) => {
+                return (
+                  <div key={node.key}>
+                    <Img
+                      fluid={node.relationships.field_hero_image.localFile.childImageSharp.fluid}
+                    />
+                  </div>
+                )
+              })} */}
+              {/* <div>{ images }</div> */}
+              <Img
+                fluid={node.relationships.field_hero_image.localFile.childImageSharp.fluid}
+              />
+              
+              <div className="servings"> { node.field_servings } </div>
+              <div className="duration"> { node.field_duration } </div>
+              <div className="ingredients" dangerouslySetInnerHTML={{ __html: node.field_ingredients.processed }} />
+              <div className="directions" dangerouslySetInnerHTML={{ __html: node.field_directions.processed }} />
+            </div>
+          ))}
         </div>
-      ))}
-    </div>
-  </Layout>
-)
+      </Layout>
+    )
+  }
+}
+
 
 export default RecipePage
 
