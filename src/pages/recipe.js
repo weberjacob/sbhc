@@ -56,7 +56,7 @@ export const recipeQuery = graphql`
     allNodeRecipe(sort: {fields: [revision_timestamp], order: DESC}) {
       edges {
         node {
-          id
+          drupal_id
           revision_timestamp
           title
           field_servings
