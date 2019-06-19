@@ -1,53 +1,22 @@
 import { graphql } from "gatsby"
 
 export const nodeRecipeFragment = graphql`
-  fragment nodePageFragment on node__page {
+  fragment nodeRecipeFragment on node__recipe {
     nid: drupal_internal__nid
     title
-    subtitle: field_short_title
-    summary: field_summary
-    path {
-      alias
+    duration: field_duration
+    servings: field_servings
+    directions: field_directions {
+      value
+    }
+    ingredients: field_ingredients {
+      value
     }
     r: relationships {
-      content: field_content {
+      content: field_body {
         __typename
-        ... on paragraph__breaker {
-          ...breakerFragment
-        }
-        ... on paragraph__card {
-          ...cardFragment
-        }
-        ... on paragraph__card_list {
-          ...cardListFragment
-        }
-        ... on paragraph__faq {
-          ...faqFragment
-        }
-        ... on paragraph__gallery_carousel {
-          ...galleryCarouselFragment
-        }
-        ... on paragraph__hero_media {
-          ...heroMediaFragment
-        }
-        ... on paragraph__map {
-          ...mapFragment
-        }
-        ... on paragraph__quote {
-          ...quoteFragment
-        }
-      }
-      thumbnail: field_thumbnail {
-        r: relationships {
-          image: field_image {
-            file: localFile {
-              cis: childImageSharp {
-                fluid(maxHeight: 200) {
-                  src
-                }
-              }
-            }
-          }
+        ... on paragraph__text {
+          ...textFragment
         }
       }
     }
