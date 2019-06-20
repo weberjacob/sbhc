@@ -8,25 +8,24 @@ import Layout from "../../components/layout/layout"
 // Fields
 import Content from "../../components/fields/Content"
 
-const NodeRecipeTemplate = ({ data }) => {
-  const { title, summary } = data.nodePage
-  const { content } = data.nodePage.r
+const NodeRecipeFragment = ({ data }) => {
+  const { title } = data.nodeRecipe
+  const { content } = data.nodeRecipe.r
   return (
     <Layout>
       <Helmet>
         <title>{title} | Mediacurrent</title>
-        <meta name="description" content={summary} />
       </Helmet>
       <Content content={content} />
     </Layout>
   )
 }
 
-export default NodeRecipeTemplate
+export default NodeRecipeFragment
 
 export const query = graphql`
   query pageTemplate($slug: Int) {
-    nodePage(drupal_internal__nid: { eq: $slug }) {
+    nodeRecipe(drupal_internal__nid: { eq: $slug }) {
       ...nodeRecipeFragment
     }
   }

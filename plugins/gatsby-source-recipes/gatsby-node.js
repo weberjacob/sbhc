@@ -4,34 +4,34 @@ exports.createPages = ({ actions, graphql }) => {
   const { createPage } = actions;
 
   return new Promise((resolve, reject) => {
-    const pageTemplate = path.resolve(`src/templates/NodePageTemplate/index.js`);
+    const pageTemplate = path.resolve(`src/templates/NodeRecipeTemplate/index.js`);
 
     resolve(
       graphql(
         `
           {
-            allNodePage(
+            allNodeRecipe(
               filter: {status: {eq:true}}
             ) {
               edges {
                  node {
+                  title
                   status
                   nid:drupal_internal__nid
-                  path { alias }
                 }
               }
             }
           }
         `
       )
-      // @todo: Add starters for other content types.
+        // @todo: Add starters for other content types.
         .then((result) => {
           if (result.errors) reject(result.errors);
           if (!result.data) reject('No data found. Fix your GraphQL stuff');
           console.log('Creating Recipe Nodes');
-          result.data.allNodePage.edges.forEach(({ node }) => {
+          result.data.allNodeRecipe.edges.forEach(({ node }) => {
             createPage({
-              path: node.path.alias,
+              path: node.title,
               component: pageTemplate,
               context: {
                 slug: node.nid
